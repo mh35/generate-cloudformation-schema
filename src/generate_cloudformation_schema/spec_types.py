@@ -19,6 +19,7 @@ class _PrimitiveArrayProperty(TypedDict):
 
     Documentation: str
     Type: Literal["List"]
+    DuplicatesAllowed: bool
     PrimitiveItemType: Literal[
         "String", "Long", "Integer", "Double", "Boolean", "Timestamp"
     ]
@@ -34,5 +35,35 @@ class _PrimitiveMapProperty(TypedDict):
     PrimitiveItemType: Literal[
         "String", "Long", "Integer", "Double", "Boolean", "Timestamp"
     ]
+    Required: bool
+    UpdateType: str
+
+
+class _ComplexTypeProperty(TypedDict):
+    """他の型を参照する単一型プロパティの属性定義です."""
+
+    Documentation: str
+    Type: str
+    Required: bool
+    UpdateType: str
+
+
+class _ComplexArrayProperty(TypedDict):
+    """他の型を参照する配列プロパティの属性定義です."""
+
+    Documentation: str
+    Type: Literal["List"]
+    DuplicatesAllowed: bool
+    ItemType: str
+    Required: bool
+    UpdateType: str
+
+
+class _ComplexMapProperty(TypedDict):
+    """他の型を参照するマッププロパティの属性定義です."""
+
+    Documentation: str
+    Type: Literal["Map"]
+    ItemType: str
     Required: bool
     UpdateType: str
