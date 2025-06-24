@@ -1,2 +1,2 @@
-# generate-cloudformation-schema
-AWS CloudFormationのスキーマを、リソース仕様から生成するプログラム
+# AWS CloudFormation Schema Generator
+AWS CloudFormationのスキーマを、リソース仕様から生成するプログラムです。
