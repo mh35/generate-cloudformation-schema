@@ -1,6 +1,6 @@
 """リソース仕様のJSON型の定義です."""
 
-from typing import Literal, TypedDict, Union
+from typing import Literal, NotRequired, TypedDict, Union
 
 
 _UpdateType = Literal["Mutable", "Immutable", "Conditional"]
@@ -103,13 +103,13 @@ _ResourceAttributeType = Union[_PrimitiveResourceAttributeType, _PrimitiveListRe
 class _ResourceTypeSpec(TypedDict):
     """リソース全体の型定義です."""
 
-    Attributes: dict[str, _ResourceAttributeType]
+    Attributes: NotRequired[dict[str, _ResourceAttributeType]]
     Documentation: str
     Properties: dict[str, _PropertyType]
 
 class ResourcesSpec(TypedDict):
     """リソース定義全体の型定義です."""
 
-    PropertyTypes: dict[str, _PropertyType]
+    PropertyTypes: NotRequired[dict[str, _PropertyType]]
     ResourceSpecificationVersion: str
     ResourceTypes: dict[str, _ResourceTypeSpec]
