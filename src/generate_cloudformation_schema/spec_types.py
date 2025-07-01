@@ -1,7 +1,9 @@
 """リソース仕様のJSON型の定義です."""
 
-from typing import Literal, TypedDict
+from typing import Literal, TypedDict, Union
 
+
+_UpdateType = Literal["Mutable", "Immutable", "Conditional"]
 
 class _PrimitiveProperty(TypedDict):
     """プリミティブなプロパティの属性定義です."""
@@ -11,7 +13,7 @@ class _PrimitiveProperty(TypedDict):
         "String", "Long", "Integer", "Double", "Boolean", "Timestamp", "Json"
     ]
     Required: bool
-    UpdateType: str
+    UpdateType: _UpdateType
 
 
 class _PrimitiveArrayProperty(TypedDict):
@@ -24,7 +26,7 @@ class _PrimitiveArrayProperty(TypedDict):
         "String", "Long", "Integer", "Double", "Boolean", "Timestamp"
     ]
     Required: bool
-    UpdateType: str
+    UpdateType: _UpdateType
 
 
 class _PrimitiveMapProperty(TypedDict):
@@ -36,7 +38,7 @@ class _PrimitiveMapProperty(TypedDict):
         "String", "Long", "Integer", "Double", "Boolean", "Timestamp"
     ]
     Required: bool
-    UpdateType: str
+    UpdateType: _UpdateType
 
 
 class _ComplexTypeProperty(TypedDict):
@@ -45,7 +47,7 @@ class _ComplexTypeProperty(TypedDict):
     Documentation: str
     Type: str
     Required: bool
-    UpdateType: str
+    UpdateType: _UpdateType
 
 
 class _ComplexArrayProperty(TypedDict):
@@ -56,7 +58,7 @@ class _ComplexArrayProperty(TypedDict):
     DuplicatesAllowed: bool
     ItemType: str
     Required: bool
-    UpdateType: str
+    UpdateType: _UpdateType
 
 
 class _ComplexMapProperty(TypedDict):
@@ -66,4 +68,48 @@ class _ComplexMapProperty(TypedDict):
     Type: Literal["Map"]
     ItemType: str
     Required: bool
-    UpdateType: str
+    UpdateType: _UpdateType
+
+_PropertyType = Union[_PrimitiveProperty, _PrimitiveArrayProperty, _PrimitiveMapProperty, _ComplexTypeProperty, _ComplexArrayProperty, _ComplexMapProperty]
+
+class _PrimitiveResourceAttributeType(TypedDict):
+    """プリミティブなリソース属性の属性定義です."""
+
+    PrimitiveType: Literal[
+        "String", "Long", "Integer", "Double", "Boolean", "Timestamp", "Json"
+    ]
+
+class _PrimitiveListResourceAttributeType(TypedDict):
+    """プリミティブな配列リソース属性の属性定義です."""
+
+    Type: Literal["List"]
+    PrimitiveItemType: Literal[
+        "String", "Long", "Integer", "Double", "Boolean", "Timestamp"
+    ]
+
+class _ComplexResourceAttributeType(TypedDict):
+    """他の型を参照する単一型リソース属性の属性定義です."""
+
+    Type: str
+
+class _ComplexListResourceAttributeType(TypedDict):
+    """他の型を参照する配列リソース属性の属性定義です."""
+
+    Type: Literal["List"]
+    ItemType: str
+
+_ResourceAttributeType = Union[_PrimitiveResourceAttributeType, _PrimitiveListResourceAttributeType, _ComplexResourceAttributeType, _ComplexListResourceAttributeType]
+
+class _ResourceTypeSpec(TypedDict):
+    """リソース全体の型定義です."""
+
+    Attributes: dict[str, _ResourceAttributeType]
+    Documentation: str
+    Properties: dict[str, _PropertyType]
+
+class ResourcesSpec(TypedDict):
+    """リソース定義全体の型定義です."""
+
+    PropertyTypes: dict[str, _PropertyType]
+    ResourceSpecificationVersion: str
+    ResourceTypes: dict[str, _ResourceTypeSpec]
