@@ -81,6 +81,7 @@ _FieldSchema = Union[
     _RefField,
     _EnumField,
     _ConstField,
+    _BoolField,
     _NullField,
     _IntField,
     _NumberField,
