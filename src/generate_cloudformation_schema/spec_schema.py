@@ -240,6 +240,7 @@ MULTI_SPEC_SCHEMA = JSONSchema(
                         },
                     },
                     "Documentation": {"type": "string", "format": "uri"},
+                    "AdditionalProperties": {"type": "boolean"},
                     "Properties": {
                         "type": "object",
                         "patternProperties": {
@@ -562,6 +563,7 @@ SINGLE_SPEC_SCHEMA = JSONSchema(
                         },
                     },
                     "Documentation": {"type": "string", "format": "uri"},
+                    "AdditionalProperties": {"type": "boolean"},
                     "Properties": {
                         "type": "object",
                         "patternProperties": {

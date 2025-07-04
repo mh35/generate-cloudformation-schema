@@ -130,6 +130,7 @@ class _ResourceTypeSpec(TypedDict):
     """リソース全体の型定義です."""
 
     Attributes: NotRequired[dict[str, _ResourceAttributeType]]
+    AdditionalProperties: NotRequired[bool]
     Documentation: str
     Properties: dict[str, _PropertyType]
 
